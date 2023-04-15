@@ -1,4 +1,4 @@
-# Larning-C
+# Learn-C
 
 This is a test repository. 
 
