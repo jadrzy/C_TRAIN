@@ -69,7 +69,7 @@ int main(void){
                 delivery = cost2 + (pounds - 20) * 0.50;
             
             printf("\nDelivery\t\t\t\t$%0.2f", delivery);
-            printf("\n\t\t\t\tTotal: $%0.2f", qartichokes * artichokes + qbeets * beets +
+            printf("\n\t\t\t\t Total: $%0.2f", qartichokes * artichokes + qbeets * beets +
              qcarrots * carrots + delivery);
             printf("\nDo you confirm order?");
             printf("\n1) Yes");
@@ -87,7 +87,6 @@ int main(void){
                 while((bin = getchar()) != '\n');
                 continue;
             }
-
         /* CANCEL ORDER */
         case 5:
             printf("\nDo you want to quit?");
@@ -112,12 +111,6 @@ int main(void){
             while((bin = getchar()) != '\n');
             continue;
         }        
-
-
-
-
-
     } while (1);
-    
     return 0;
 }
