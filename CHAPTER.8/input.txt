@@ -1,0 +1,2 @@
+This is random text file.
+It is used as input for a few exercises. 
