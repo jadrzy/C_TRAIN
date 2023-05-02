@@ -55,7 +55,7 @@ char get_choice(void){
 
 char get_first(void){
     int ch;
-    ch = getchar();
+    while ((ch = getchar()) == ' ');
     while (getchar() != '\n')
         continue;
     return ch;
