@@ -1,27 +1,30 @@
-// ASCII lowercase scope (97-122)
-//       uppercase scope (65-90)
 #include <stdio.h>
-#include <ctype.h>
-int num_location(char character);
+#include<unistd.h>
+void function(double *first, double *second, double *third);
 int main(void){
-    char ch;
-    while((ch = getchar()) != EOF){
-        printf("%c", ch);
-        if (num_location(ch) > 0)
-            printf("%d", num_location(ch));
-        printf("\n");
-    }
-    printf("\n");
+    double number1 = -1;
+    double number2 = -2;
+    double number3 = -3333;
+    function(&number1, &number2, &number3);
+    printf("Number1: %g   Number2: %g   , Number3: %g   \n",
+    number1, number2, number3);
     return 0;
 }
-int num_location(char character){
-    int location;
-    if (islower(character)){
-        location = (int) character - 96;
-    } else if (isupper(character)){
-        location = (int) character - 64;
-    } else {
-        location = -1;
+void function(double *first, double *second, double *third){
+    double placeholder; 
+    if (*first > *second){
+        placeholder = *first;
+        *first = *second;
+        *second = placeholder;
     }
-    return location;
+    if (*second > *third){
+        placeholder = *second;
+        *second = *third;
+        *third = placeholder;
+    }
+    if (*first > *second){
+        placeholder = *first;
+        *first = *second;
+        *second = placeholder;
+    }    
 }
