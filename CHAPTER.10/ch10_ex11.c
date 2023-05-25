@@ -22,7 +22,6 @@ void display(int array[][COL]){
         printf("\n");
     }
     printf("%s\n", asterisks);
-
 }
 void dbl(int array[][COL]){
     for (int i = 0; i < ROW; i++){
