@@ -2,12 +2,12 @@
 #include "header.h"
 
 int main (void){
-    char strings[LIMIT][LENGHT] = {0}; //CREATE AND DEFINE MAIN ARRAY
-    int count = 0; //COUNTING NUMBER OF STRINGS PRESENT IN THE MAIN ARRAY
+    char strings[LIMIT][LENGHT] = {0};//CREATE AND DEFINE MAIN ARRAY
+    int count = 0;//COUNTING NUMBER OF STRINGS PRESENT IN THE MAIN ARRAY
     char choice;
     intro();//runs only on startup
 
-    //loop
+    //MAIN LOOP
     while(1){    
         choice = menu(&count);
         switch (choice){
