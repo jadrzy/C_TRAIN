@@ -3,12 +3,13 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "header.h"
 
 int main (void){
     char choice;
     int count = 0;//counting total number of strings
-    char strings[LIMIT][LENGHT];//main array with strings
+    char strings[LIMIT][LENGHT] = {0};//main array with strings
     intro();//runs only on startup
 
     //loop
@@ -16,13 +17,13 @@ int main (void){
         choice = menu(&count);
         switch (choice){
             case 'a':
-                //addstring();           
+                addstring(strings, &count);           
                 break;
             case 'b':
                 //sort();
                 break;
             case 'c':
-                //display();
+                display(strings);
                 break;
             case 'd':
                 //deletestring();

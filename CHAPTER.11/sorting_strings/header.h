@@ -6,6 +6,8 @@
 //action functions
 char menu(int *n);
 char input_validation(void);
+void addstring(char (*array)[LENGHT], int *n);
+void display(char (*array)[LENGHT]);
 
 //info functions
 void intro(void);

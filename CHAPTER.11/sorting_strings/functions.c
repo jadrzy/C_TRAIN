@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "header.h"
 
 //ACTION FUNCTIONS
@@ -28,8 +29,6 @@ char input_validation(void){
     bool valid = false;
     while(valid != true){
         while((ch = getchar()) == ' ' || ch == '\n');
-        //if(ch == '\n')
-           // continue;
         if(ch != 'a' && ch != 'b' && ch != 'c' 
         && ch != 'd' && ch != 'e' && ch != 'i'){
             printf("\nError! Please try again!\n");
@@ -40,6 +39,45 @@ char input_validation(void){
         }
     }
     return ch;
+}
+
+void addstring(char (*array)[LENGHT], int *n){
+    bool add = false, corrects = false;
+    int i, j;
+    for(i = 0; add != true && i < LIMIT; i++){
+        if(strlen(array[i]) != 0){
+            continue;
+        }else{
+            printf("Please enter string: ");
+            while(fgets(array[i], LENGHT, stdin) == NULL 
+                                    && *array[i] != '\n');
+            j = 0;
+            while(array[i][j] != '\n' && array[i][j] != '\0'){
+                if(isspace(array[i][j]) == 0)
+                    corrects = true;
+                j++;
+            }
+            if(corrects == false){
+                for(j = 0; array[i][j] != '\0'; j++)
+                    array[i][j] = '\0';
+            }
+            else if(array[i][j] == '\n')
+                array[i][j] = '\0';
+            else
+                continue;
+            add = true;
+            corrects == true ? (*n)++,
+                                printf("String added and placed on %d position\n", i + 1):
+                                printf("String was not added.\n");  
+        }
+    }
+}
+void display(char (*array)[LENGHT]){
+    for(int i = 0; i < LIMIT; i++){
+        printf("%d.\t", i + 1);
+        fputs(array[i], stdout);
+        printf("\n");
+    }
 }
 
 //INFO FUNCTIONS
