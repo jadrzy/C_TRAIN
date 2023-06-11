@@ -1,4 +1,4 @@
-#define LENGHT 81
+#define LENGHT 6
 #define LIMIT 20
 #define ASTERISKS "*****************************************"
 #define PLHOLDER "Press enter..."
