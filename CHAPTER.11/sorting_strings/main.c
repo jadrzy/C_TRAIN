@@ -25,7 +25,7 @@ int main (void){
                 break;
             case 'd':
                 printf("\n***OPERATION: DELETE STRING***\n\n");
-                //deletestring();
+                deletestring(strings, &count);
                 break;
             case 'e':
                 printf("\n***OPERATION: CLEAR ARRAY***\n\n");

@@ -47,7 +47,11 @@ void addstring(char (*array)[LENGHT], int *n){//ADDING STRINGS TO THE ARRAY
     bool add = false, corrects = false;
     int i, j;
     char new_string[LENGHT];
-    for(i = 0; add != true && i < LIMIT; i++){//SEARCHING FOR THE CLOSEST FREE ROW OF THE ARRAY
+    for(i = 0; add != true; i++){//SEARCHING FOR THE CLOSEST FREE ROW OF THE ARRAY
+        if(i == LIMIT){
+            printf("Every row is busy. Please delete some strings.\n");
+            break;
+        }
         if(strlen(array[i]) != 0){//SKIP THIS CYCLE IF A ROW IS OCCUPIED
             continue;
         }else{//PREPARE FOR ENTERING DATA
@@ -76,6 +80,44 @@ void addstring(char (*array)[LENGHT], int *n){//ADDING STRINGS TO THE ARRAY
             add = true;//TERMINATE LOOP
         }
     }
+}
+
+void deletestring(char (*array)[LENGHT], int *n){
+    int del, j;
+    del = getrow();//INPUT VALIDATION
+    if(del == 0)//TERMINATE IF INPUT IS 0
+        return;
+    --del;
+    if(strlen(array[del]) > 0){//CLEAR IF STRING IS OCCUPIED
+        for(j = 0; array[del][j] != '\0'; j++){
+            array[del][j] = '\0';
+        }
+        printf("String has been deleted.\n");
+        (*n)--;
+    }else{
+        printf("This row is empty.\n");
+    }
+}
+
+int getrow(void){//INPUT VALIDATION FUNCTION
+    int row;
+    bool correctrow = false;//STATUS FLAG
+    while(correctrow == false){
+        printf("Type 0 to cancel.\n");
+        printf("Please enter index of a string that you want do delete: ");
+        while(scanf("%d", &row) != 1){//FORMAT VALIDATION
+            printf("\nError! Enter integer value!\n");
+            printf("Type 0 to cancel.\n");
+            printf("Please enter index of string that you want do delete: ");
+            while(getchar() != '\n');
+        }
+        if(row >= 0 && row <= LIMIT)//NUMBER VALIDATION
+            correctrow = true;
+        else
+            printf("\nERROR! Value is too big or too small!\n");
+        while(getchar() != '\n');
+    }
+    return row;
 }
 
 void display(char (*array)[LENGHT]){//ARRAY DISPLAY FUNCTION
