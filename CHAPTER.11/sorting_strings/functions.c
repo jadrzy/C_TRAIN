@@ -82,6 +82,14 @@ void addstring(char (*array)[LENGHT], int *n){//ADDING STRINGS TO THE ARRAY
     }
 }
 
+void display(char (*array)[LENGHT]){//ARRAY DISPLAY FUNCTION
+    for(int i = 0; i < LIMIT; i++){
+        printf("%d.\t", i + 1);
+        fputs(array[i], stdout);
+        printf("\n");
+    }
+}
+
 void deletestring(char (*array)[LENGHT], int *n, char s[4]){
     int del, j, num;
     if(strstr(s, "one") != NULL){//CLEAR ONE ROW MODE
@@ -134,17 +142,26 @@ int getrow(void){//INPUT VALIDATION FUNCTION
     return row;
 }
 
-void display(char (*array)[LENGHT]){//ARRAY DISPLAY FUNCTION
-    for(int i = 0; i < LIMIT; i++){
-        printf("%d.\t", i + 1);
-        fputs(array[i], stdout);
-        printf("\n");
-    }
+void sort(char (*array)[LENGHT]){
+    bool change;//STATUS FLAG
+    int row;
+    char arr[LENGHT] = {0};
+    do{
+        for(row = 0, change = false; row < LIMIT - 1; row++){
+            if(strncmp(array[row], array[row + 1], LENGHT) > 0){//COMPARING EVERY TWO NEIGHBOR STRINGS
+                strcpy(arr, array[row]);//SWITCHING TWO STRINGS WHEN CONDITION IS MET
+                strcpy(array[row], array[row + 1]);
+                strcpy(array[row + 1], arr);
+                change = true;//FLAG TURNS TRUE WHEN CHANGES ARE APPLIED
+            }else;
+        }
+    }while(change == true);//FUNCTION TERMINATES WHEN NO CHANGES ARE APPLIED INSIDE FOR LOOP 
+    printf("Done!\n");
 }
 
 //INFO FUNCTIONS
 void intro(void){
-    printf("Welcome into the sorting program.\n");//start intro
+    printf("\nWelcome into the sorting program.\n");//start intro
     sleep(1);
     printf("Please follow instructions.\n");
     sleep(1);

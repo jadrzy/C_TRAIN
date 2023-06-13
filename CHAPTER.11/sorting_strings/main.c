@@ -17,7 +17,7 @@ int main (void){
                 break;
             case 'b':
                 printf("\n***OPERATION: SORT STRINGS***\n\n");
-                //sort();
+                sort(strings);
                 break;
             case 'c':
                 printf("\n***OPERATION: DISPLAY STRINGS***\n\n");
