@@ -148,11 +148,15 @@ void sort(char (*array)[LENGHT]){
     char arr[LENGHT] = {0};
     do{
         for(row = 0, change = false; row < LIMIT - 1; row++){
-            if(strncmp(array[row], array[row + 1], LENGHT) > 0){//COMPARING EVERY TWO NEIGHBOR STRINGS
+            if(strncmp(array[row], array[row + 1], LENGHT) > 0 && strlen(array[row]) > 0){//COMPARING EVERY TWO NEIGHBOR STRINGS
                 strcpy(arr, array[row]);//SWITCHING TWO STRINGS WHEN CONDITION IS MET
                 strcpy(array[row], array[row + 1]);
                 strcpy(array[row + 1], arr);
                 change = true;//FLAG TURNS TRUE WHEN CHANGES ARE APPLIED
+            }else if(strlen(array[row]) == 0){//THIS CONDIDION TRANSFERS EMPTY ROWS TO THE END OF ARRAY
+                strcpy(arr, array[row]);
+                strcpy(array[row], array[row + 1]);
+                strcpy(array[row + 1], arr);
             }else;
         }
     }while(change == true);//FUNCTION TERMINATES WHEN NO CHANGES ARE APPLIED INSIDE FOR LOOP 
