@@ -25,11 +25,11 @@ int main (void){
                 break;
             case 'd':
                 printf("\n***OPERATION: DELETE STRING***\n\n");
-                deletestring(strings, &count);
+                deletestring(strings, &count, "one");
                 break;
             case 'e':
                 printf("\n***OPERATION: CLEAR ARRAY***\n\n");
-                //clear();
+                deletestring(strings, &count, "all");
                 break;
             case 'i':
                 printf("\n***OPERATION: INFORMATION***\n\n");

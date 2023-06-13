@@ -82,20 +82,34 @@ void addstring(char (*array)[LENGHT], int *n){//ADDING STRINGS TO THE ARRAY
     }
 }
 
-void deletestring(char (*array)[LENGHT], int *n){
-    int del, j;
-    del = getrow();//INPUT VALIDATION
-    if(del == 0)//TERMINATE IF INPUT IS 0
-        return;
-    --del;
-    if(strlen(array[del]) > 0){//CLEAR IF STRING IS OCCUPIED
-        for(j = 0; array[del][j] != '\0'; j++){
-            array[del][j] = '\0';
+void deletestring(char (*array)[LENGHT], int *n, char s[4]){
+    int del, j, num;
+    if(strstr(s, "one") != NULL){//CLEAR ONE ROW MODE
+        del = getrow();//INPUT VALIDATION
+        if(del == 0)//TERMINATE IF INPUT IS 0
+            return;
+        --del;
+        if(strlen(array[del]) > 0){//CLEAR IF STRING IS OCCUPIED
+            for(j = 0; array[del][j] != '\0'; j++){
+                array[del][j] = '\0';
+            }
+            printf("String has been deleted.\n");
+            (*n)--;
+        }else{
+            printf("This row is empty.\n");
         }
-        printf("String has been deleted.\n");
-        (*n)--;
-    }else{
-        printf("This row is empty.\n");
+    }else if(strstr(s, "all") != NULL){//CLEAR ALL ROWS MODE
+        for(del = 0, num = 0; del < LIMIT; del++){
+            //question
+            if(strlen(array[del]) > 0){//CLEAR IF STRING IS OCCUPIED
+                for(j = 0; array[del][j] != '\0'; j++){
+                    array[del][j] = '\0';
+                }
+            (*n)--;
+            num++;
+            }
+        }
+        printf("%d strings have been deleted.\n", num);
     }
 }
 
