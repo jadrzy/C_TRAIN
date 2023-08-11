@@ -6,16 +6,16 @@ char *nospaces(char *st);
 
 int main(void){
     char array[5][30];
-    bool empty = false;
+    bool isEmpty = false;
     int i, j;
-    while (empty != true){
+    while (isEmpty != true){
         for (i = 0; i < 5; i++){
-            if(empty == true)
+            if (isEmpty == true)
                 break;
-            fgets(array[i], 29, stdin);
-            for (j = 0, empty = true; j < (int) strlen(array[i]); j++){
+            fgets (array[i], 29, stdin);
+            for (j = 0, isEmpty = true; j < (int) strlen(array[i]); j++){
                 if (isspace(array[i][j]) == 0){
-                    empty = false;
+                    isEmpty = false;
                 }
             }
         }
