@@ -11,7 +11,6 @@ int main(int argc, char** argv){
 }
 char *gets(char *st, int n){
     char *ret_val;
-    int i, j;
     ret_val = fgets(st, n, stdin);        
     st[strcspn(st, "\n")] = '\0'; // NEWLINE IS REPLACED WITH \0
     return ret_val;
