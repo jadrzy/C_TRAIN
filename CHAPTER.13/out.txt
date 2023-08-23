@@ -1,0 +1,6 @@
+LINE 1
+LINE 2
+LINE 3
+L NE 4
+L NE 5
+ INE 6
