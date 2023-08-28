@@ -18,5 +18,6 @@ int main(int argc, char ** argv){
             fputs(string, stdout);
     }
     printf("\n");
+    fclose(fp);
     return 0;
 }
