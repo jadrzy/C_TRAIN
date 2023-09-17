@@ -1,7 +1,7 @@
 #include <stdbool.h>    // for boolean type
 #define MAXSEAT 12
-#define MAXNAME 20
-// structures
+#define MAXNAME 15
+// STRUCTURES
 struct id {
     char fname[MAXNAME];
     char lname[MAXNAME];
@@ -11,7 +11,7 @@ struct seat{
     bool empty;
     struct id person;
 };
-// prototypes
+// PROTOTYPES
 // menu function
 int c_gets(void);       
 //functions from the menu

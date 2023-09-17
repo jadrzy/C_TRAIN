@@ -11,7 +11,7 @@ void menu(void){
     printf("c) Show alphabetical list of seats\n");
     printf("d) Assign a customer to a seat assignment\n");
     printf("e) Delete a seat assignment\n");
-    printf("f) Quit\n"); 
+    printf("f) Quit and Save\n"); 
 }
 
 int c_gets(void){                                                       // return value is an integer in the range 0-5
@@ -27,7 +27,7 @@ int c_gets(void){                                                       // retur
 }
 
 // functions from the menu
-void show_num(struct seat *pts){
+void show_num(struct seat *pts){                                        // function prints how many seats are available
     int count = 0;
     for (int i = 0; i < MAXSEAT; i++, pts++)
         if (pts->empty == true)
@@ -35,7 +35,7 @@ void show_num(struct seat *pts){
     printf("Empty seats = %d\n", count);
 }
 
-void show_list(struct seat *pts){
+void show_list(struct seat *pts){                                       // function prints numbers of empty seats
     printf("Empty seats:\n");
     for (int i = 0; i < MAXSEAT; i++, pts++)
         if (pts->empty == true)
@@ -43,82 +43,92 @@ void show_list(struct seat *pts){
     printf("\n");
 }
 
-void show_alp(struct seat *pts){
+void show_alp(struct seat *pts){                                        // function prints passengers and their seat number in the order sorted by name
     int array[12] = {-1};
     int count = 0;
-    int printed = 0;
+    int printed = 0;    // for tracking number of printed passengers
     int current_guy;
-    for (int i = 0; i < MAXSEAT; i++){
+    for (int i = 0; i < MAXSEAT; i++){                                  // create array for tracking printed passengers
         if (pts[i].empty == false){
             array[count] = i;
             count++;
         }
     }
-    
-    while (printed < count){
-        for (int i = 0; i < count; i++){
-            if (array[i] != -1)
+    while (1){
+        for (int i = 0; i < count; i++){                                // find first person that has not been printed yet
+            if (array[i] != -1){
                 current_guy = i;
+                break;
+            }
         }
-        if (count - printed == 1){                      // printing last guy
-            printf(" ");
+        if (count - printed == 1){                                      // printing last guy
+            printf("%15s%15s\t%d\n", 
+            pts[array[current_guy]].person.fname, 
+            pts[array[current_guy]].person.lname, 
+            pts[array[current_guy]].number);
             break;
         }
-        for (int i = 0; i < count; i++){                // connect two for loops for later!!!!!!!!!!!!!!!!!!!!!!!!
-            if ((strcmp(pts[array[current_guy]].person.fname, pts[array[i]].person.fname) > 0) && array[i] != -1)
-            current_guy = i;
+        else{
+            for (int i = 0; i < count; i++){                            // comparing current and next passenger
+                if ((strcmp(pts[array[current_guy]].person.fname, 
+                            pts[array[i]].person.fname) > 0) 
+                    && array[i] != -1)
+                current_guy = i;
+            }
         }
+        printf("%15s%15s\t%d\n", 
+        pts[array[current_guy]].person.fname, 
+        pts[array[current_guy]].person.lname, 
+        pts[array[current_guy]].number);
+        array[current_guy] = -1;
+        printed++;
     }
-
-
-
-
-
 }
 
-void assign(struct seat *pts){
+void assign(struct seat *pts){                                          // function for assigining new passengers to the plane array
     int seat;
     for (int i = 0; i < MAXSEAT + 1; i++, pts){
-        if (i == 12){
+        if (i == 12){                                                   // report error if all seats are taken
             printf("All seats are taken\n");
             return;
         }   
         if (pts[i].empty == true)
             break;
     }                                                
-    printf("Enter number of the seat:\n");
+    printf("Enter number of the seat:\n");                              // get a seat number from the user
     while (scanf("%d", &seat) != 1 || seat < 1 || seat > 12){
         printf("Error. Try again:\n");
         while (getchar() != '\n');
     }
     while (getchar() != '\n');
     if (pts[seat - 1].empty == true){
-        printf("Enter first and second name:\n");
-        while ((scanf("%s %s", pts[seat - 1].person.fname, pts[seat - 1].person.lname)) != 2);
+        printf("Enter first and second name:\n");  
+        while ((scanf("%s %s",                                          // get the name and surname of the passenger
+                pts[seat - 1].person.fname, 
+                pts[seat - 1].person.lname)) != 2);
         pts[seat - 1].empty = false;
         while (getchar() != '\n');          
     }
     else{
-        printf("Seat is taken\n");
+        printf("Seat is taken\n");                                      // report if seat is taken
     }
 }
-
-void delete(struct seat *pts){
+void delete(struct seat *pts){                                          // function that deletes choosen passenger from the plane array  
     int seat;
     for (int i = 0; i < MAXSEAT + 1; i++, pts){
         if (i == 12){
-            printf("All seats are empty\n");
+            printf("All seats are empty\n");                            // report if all seats are empty
             return;
         }   
         if (pts[i].empty == false)
             break;
     }
-    printf("Enter number of the seat:\n");
+    printf("Enter number of the seat:\n");                              // get a seat number from the user
     while (scanf("%d", &seat) != 1 || seat < 1 || seat > 12){
         printf("Error. Try again:\n");
         while (getchar() != '\n');
     }
-    while (getchar() != '\n'); 
+    while (getchar() != '\n');                      
     if (pts[seat - 1].empty == false){
         for (int i = 0; i < MAXNAME; i++){
             pts->person.fname[i] = '\0';
@@ -127,11 +137,23 @@ void delete(struct seat *pts){
         pts[seat - 1].empty = true;
     }
     else{
-        printf("Seat is already empty\n");
+        printf("Seat is already empty\n");                              // report if seat is already empty
     }
 }
 
-void save_quit(struct seat *pts){
+void save_quit(struct seat *pts){                                       // function that saves data into seats.dat file and terminates program
+    FILE *pf;
+    int size = sizeof(struct seat);
+    if ((pf = fopen("seats.dat", "wb+")) == NULL){                      // open file for writing in binary mode
+        printf("Error opening seats.dat file\n");
+        printf("Data has not been saved\n");
+        exit(EXIT_FAILURE);
+    }
+    rewind(pf);
+    for (int i = 0; i < MAXSEAT; i++){
+        fwrite(&pts[i], size, 1, pf);
+    }
+    fclose(pf);
     printf("Bye!\n");
     exit(EXIT_SUCCESS);
 }
