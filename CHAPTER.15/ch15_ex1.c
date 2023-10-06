@@ -13,7 +13,7 @@ int main(void){
 int b2v(char * ps, int n){
     int value = 0;
     int power = 0;
-    for (int i = n - 1; i > 0; i--, power++){
+    for (int i = n - 1; i >= 0; i--, power++){
         if (ps[i] == '1'){
             value += pow(2, power); 
         }
