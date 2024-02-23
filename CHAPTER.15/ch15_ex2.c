@@ -19,7 +19,7 @@ int main(int argc, char **argv){
         if (*(argv[1] + i) != '0' && *(argv[1] + i) != '1'){                                                    // string 1 validation
             fprintf(stderr, "Error! Wrong declaration \"%s\". Enter a number written in binary.\n", argv[1]);
             exit(EXIT_FAILURE);
-        }
+       }
     }
     for (int i = 0; i < lenght2; i++){
         if (*(argv[2] + i) != '0' && *(argv[2] + i) != '1'){                                                    // string 2 validation
